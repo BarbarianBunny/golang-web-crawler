@@ -23,3 +23,7 @@ go.work.sum
 
 # env file
 .env
+
+# Go binary
+crawler
+golang-web-crawler
