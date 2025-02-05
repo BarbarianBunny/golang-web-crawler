@@ -40,6 +40,16 @@ func TestNormalizeURL(t *testing.T) {
 			expected:  "blog.boot.dev/path",
 			expectErr: false,
 		}, {
+			name:      "remove host slash",
+			inputURL:  "blog.boot.dev/",
+			expected:  "blog.boot.dev",
+			expectErr: false,
+		}, {
+			name:      "leave host unchanged",
+			inputURL:  "blog.boot.dev",
+			expected:  "blog.boot.dev",
+			expectErr: false,
+		}, {
 			name:      "error no period",
 			inputURL:  "dev/path",
 			expected:  "dev/path",
@@ -50,12 +60,6 @@ func TestNormalizeURL(t *testing.T) {
 			expected:  "http://",
 			expectErr: true,
 		},
-		// {
-		// 	name: "",
-		// 	inputURL: "",
-		// 	expected: "",
-		// 	expectErr: false,
-		// },
 	}
 
 	for i, tc := range tests {
