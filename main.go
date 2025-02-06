@@ -2,7 +2,9 @@ package main
 
 import (
 	"fmt"
+	"maps"
 	"os"
+	"slices"
 )
 
 func main() {
@@ -16,12 +18,17 @@ func main() {
 	}
 
 	baseURL := os.Args[1]
-	fmt.Printf("starting crawl of: %v\n", baseURL)
-	htmlBody, err := getHTML(baseURL)
+	baseURL, err := normalizeURL(baseURL)
 	if err != nil {
-		fmt.Printf("issue getting html: %v\n", err)
+		fmt.Println("normalizing baseURL failed")
 		os.Exit(1)
 	}
-	fmt.Printf("HTML:\n%v\n", htmlBody)
 
+	fmt.Printf("starting crawl of: %v\n", baseURL)
+	pages := crawlPage(baseURL, baseURL, make(map[string]int))
+
+	fmt.Println("URLs:")
+	for _, url := range slices.Sorted(maps.Keys(pages)) {
+		fmt.Printf("%4d - %v\n", pages[url], url)
+	}
 }
