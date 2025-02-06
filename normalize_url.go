@@ -24,6 +24,5 @@ func normalizeURL(str string) (string, error) {
 		u.Path = u.Path[0 : len(u.Path)-1]
 	}
 	strippedURL := u.Host + u.Path
-	// println(stripped_url)
 	return strippedURL, err
 }
